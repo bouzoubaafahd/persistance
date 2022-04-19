@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.univcotedazur</groupId>
+	<artifactId>polyevent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>polyevent</name>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>polyevent-components</module>
+		<module>polyevent-app</module>
+		<module>polyevent-entities</module>
+	</modules>
+
+	<properties>
+		<java.version>11</java.version>
+		<maven.plugins.version>3.0.0-M5</maven.plugins.version>
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>be68836907ee-releases</name>
+			<url>http://vmpx12.polytech.unice.fr:8002/artifactory/teaml-libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>be68836907ee-snapshots</name>
+			<url>http://vmpx12.polytech.unice.fr:8002/artifactory/teaml-libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<description>PolyEvent project</description>
+
+
+
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- maven-surefire-plugin is designed for running unit tests and if any of the tests fail then it will fail the build immediately.
+                 maven-failsafe-plugin is designed for running integration tests, and decouples failing the build if there are test failures from actually running the tests."
+              Look at https://maven.apache.org/surefire/maven-surefire-plugin/examples/inclusion-exclusion.html
+             and https://maven.apache.org/surefire/maven-failsafe-plugin/examples/inclusion-exclusion.html
+             for patterns of classes inclusion in tests and IT (Integration tests) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.plugins.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${maven.plugins.version}</version>
+				<configuration>
+					<dependenciesToScan>
+						<dependency>fr.univcotedazur.polyevent.components</dependency>
+						<dependency>fr.univcotedazur.polyevent.controllers</dependency>
+						<dependency>fr.univcotedazur.polyevent.interfaces</dependency>
+						<dependency> polyevent-app.src.main.java.fr.univcotedazur.polyevent.controllers  </dependency>
+
+					</dependenciesToScan>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+</project>
